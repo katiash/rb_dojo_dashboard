@@ -36,7 +36,40 @@ class DojosController < ApplicationController
       end
     end
   end
-  
+
+  def destroy
+    #fail
+    delete_dojo=Dojo.find(params[:id])
+    puts delete_dojo
+    delete_dojo.destroy
+    puts delete_dojo
+    redirect_to ('/')
+  end  
+
+  def edit
+    # if Dojo.exists?(params[:id])
+      @dojo=Dojo.find(params[:id])
+    # end
+  end
+
+  def update
+    @dojo=Dojo.find(params[:id])
+    if @dojo.update(create_with_attributes)
+      puts "I am in update method. My params are: ", params
+      return redirect_to edit_dojo_path(@dojo) , notice: "You have successfully updated this Dojo's information."
+    else
+      flash[:alert] = "Your updates did not pass Object Class Validations. The submitted data was: #{params[:dojo].inspect}."
+      puts "What is now in @dojo", @dojo
+      render action: :edit
+    end
+  end
+
+  def show
+    if Dojo.exists?(params[:id]) 
+     @dojo=Dojo.find(params[:id]) 
+    end
+  end
+
   private
   def create_with_attributes
     params.require(:dojo).permit(:branch, :street, :city, :state)

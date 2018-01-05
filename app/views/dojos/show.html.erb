@@ -1,0 +1,18 @@
+<%@title="#{@dojo.branch[3..@dojo.branch.length]} Dojo"%>
+<h1>Dojos#show</h1>
+<p>Find me in app/views/dojos/show.html.erb</p>
+
+<h1> <%=@dojo.branch[3..@dojo.branch.length]%> Dojo</h1>
+
+<table>
+    <tr>
+        <td> Address: </td>
+        <td> <%=@dojo.street%>
+    </tr>
+    <tr>
+        <td> City: </td>
+        <td> <%=@dojo.city%>
+    </tr>
+</table>
+
+<%=link_to 'Home'%> | <%=link_to 'Edit'%>
