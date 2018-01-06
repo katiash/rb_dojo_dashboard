@@ -12,3 +12,52 @@
 
 </body>
 </html>
+
+<!--There are three main components that make up a layout file.
+
+Asset tag helpers
+Using yield and content_for
+Using partials
+
+
+Asset Tag Helpers:
+- These helpers are methods that generate HTML for all types of assets.
+- In total, there are 6 helpers:
+  + auto_discovery_link_tag (for RSS or Atom feeds)
+  + javascript_include_tag (linking Javascript files)
+  + stylesheet_link_tag (linking to CSS files)
+  + image_tag (linking to image files)
+  + video_tag (linking to video files)
+  + audio_tag (linking to audio files) 
+
+DEFINE YOUR OWN YIELDS:
+app/views/layouts/students.html.erb
+
+NOTE: # Replace "_>"s with the rails / ruby embedded code closing tag -->
+<!DOCTYPE html>
+<!--
+<html>
+  <head>
+-->
+    <!-- Dynamically add a title -->
+<!--
+    <title><%= yield :title %></title> 
+-->
+<!-- Dynamically add some Javascript -->
+<!--<script type="text/javascript">
+        <%= yield :some_javascript %>
+    </script>  
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+In app/views/users/index.html.erb:
+<% content_for :title, "All Users" %>
+<% content_for :some_javascript do %>
+    alert("This alert comes from the all users page");
+<% end %>
+<h1>Listing all users</h1>
+<p>This is where you would have some code to display all the users</p>
+-->

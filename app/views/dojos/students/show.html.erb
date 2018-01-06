@@ -1,0 +1,9 @@
+<h1>Students#show</h1>
+<p>Find me in app/views/students/show.html.erb</p>
+
+<ul>
+<% @students.each do |student|%>
+    <li> <%=student.first_name%>
+    </li>
+<%end%>
+</ul>

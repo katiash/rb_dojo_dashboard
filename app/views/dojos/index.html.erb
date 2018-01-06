@@ -23,7 +23,7 @@
             <%= link_to 'Edit', [:edit, dojo] %>
             <form action= '/dojos/<%=dojo.id%>' method='post'>
                 <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="authenticity_token" value="form_authenticity_token">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
                 <input type="submit" name="commit" value="Delete">
             </form>
             <%# <%= link_to 'Destroy', [dojo, method: :delete, data: { confirm: 'Are you sure?' }] %>
@@ -49,7 +49,7 @@
 </table>
 
 <br>
-<%=link_to 'New Dojo'%>
+<%=link_to 'New Dojo', new_path %>
 
 <%# <%= url_for(@workshop) %>
 <%# # calls @workshop.to_param which by default returns the id of the object stored in the  %>

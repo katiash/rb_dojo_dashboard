@@ -47,9 +47,12 @@ class DojosController < ApplicationController
   end  
 
   def edit
-    # if Dojo.exists?(params[:id])
+    if Dojo.exists?(params[:id])
       @dojo=Dojo.find(params[:id])
-    # end
+      # @students=@dojo.students
+    else
+      redirect_to '/'
+    end
   end
 
   def update
@@ -59,7 +62,10 @@ class DojosController < ApplicationController
       return redirect_to edit_dojo_path(@dojo) , notice: "You have successfully updated this Dojo's information."
     else
       flash[:alert] = "Your updates did not pass Object Class Validations. The submitted data was: #{params[:dojo].inspect}."
+      flash[:errors] = @dojo.errors.full_messages # DON'T FORGET TO DISPLAY THESE INSTEAD OF WHAT IS ON EDIT VIEW NOW
       puts "What is now in @dojo", @dojo
+      # @dojo=Dojo.find(params[:id]) # DON'T FORGET TO UNCOMMENT, ALONG WITH THE ABOVE LINE
+      # IN EDIT VIEW, REMOVE THE 'HIDDEN' assignment RIGHT BEFORE THE EDIT FORM. You Won't Need It Now. :)
       render action: :edit
     end
   end
@@ -67,6 +73,9 @@ class DojosController < ApplicationController
   def show
     if Dojo.exists?(params[:id]) 
      @dojo=Dojo.find(params[:id]) 
+     @students=@dojo.students
+    else
+      redirect_to '/'
     end
   end
 
