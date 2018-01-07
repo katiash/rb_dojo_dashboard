@@ -61,3 +61,39 @@ In app/views/users/index.html.erb:
 <h1>Listing all users</h1>
 <p>This is where you would have some code to display all the users</p>
 -->
+
+
+<!--
+PARTIALS have a UNIQUE NAMING convention. 
+They start with an underscore (_name) to distinguish them from other views. 
+Depending on their use case, you can save them in the same folder of the name of your resource,
+or you can create a whole new folder:
+
+app/views/shared/_header.html.erb
+<header>
+    <h1>This can be a header shared by multiple views</h1>
+<header>
+
+app/views/shared/_footer.html.erb
+<footer>
+    <h1>This can be a footer shared by multiple views</h1>
+<footer>
+
+app/views/users/student_partial.html.erb
+<div>
+    <p>A paragraph that needs to be in all views for the students resource</p>
+</div>
+
+app/views/users/index.html.erb
+( Notice the omission of the underscore when used/called in views..)
+- Rendering the header partial from another folder:
+
+<%= render "shared/header" %>
+<h1>This is the index view for all the students</h1>
+
+- Rendering the user_partial from the same folder:
+<%= render "student_partial" %>
+
+- Rendering the footer partial from another folder:
+<%= render "shared/footer" %>
+

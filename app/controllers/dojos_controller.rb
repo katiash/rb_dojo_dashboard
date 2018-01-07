@@ -1,4 +1,7 @@
 class DojosController < ApplicationController
+  layout "application", only: [:new, :index, :edit, :show] #This is default behaviour for all views actually...
+ # only the index and the new action will be loaded through app/views/layouts/dojos.html.erb
+ # layout "dojos", only: [:new, :index, :edit, :show]
 
   def index
     puts "Object created? Params are: ", params
@@ -77,6 +80,12 @@ class DojosController < ApplicationController
     else
       redirect_to '/'
     end
+  end
+
+  # THIS IS ONLY FOR EXAMPLE OF USING LAYOUTS (ROUTES HAVE NOT BE ADDED FOR THIS METHOD YET.)
+  def hello_world
+    render layout: "application"
+     # renders with app/views/layouts/application.html.erb
   end
 
   private

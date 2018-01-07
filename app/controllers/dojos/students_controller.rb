@@ -2,6 +2,8 @@ class Dojos::StudentsController < ApplicationController
  before_action :set_student, only: [:edit, :show, :update, :destroy]
  before_action :set_dojo, only: [:edit, :destroy, :update, :new, :show]
  
+ require 'date'
+
   def new
     @student=Student.new
     @dojos=Dojo.all
@@ -21,12 +23,30 @@ class Dojos::StudentsController < ApplicationController
   end
 
   def show
-    # fail
-    puts @dojo.branch
-    @students=Dojo.joins(:students).select("students.first_name", "students.last_name", "students.email").where("dojos.id = #{@dojo.id}" )
-    # all_these_teams = Team.joins(:players).select("players.name",' teams.name as "Team\'s Name"').where('players.name LIKE "Z%"')
+    puts @dojo.branch 
+    #@students=Dojo.joins(:students).select("students.first_name", "students.last_name", "students.email", "students.created_at").where("students.id != ? AND students.dojo_id = ?", @student.id, @student.dojo_id)
+    #@students = Students.joins(:dojo)
 
+    #@students=cohort(@student) # WORKS!!!
+    @students=Student.cohort(@student)
 
+    puts @student.created_at.to_date  # WORKS! (HERE AND IN VIEW) =>2018-01-05
+    puts @student.created_at.strftime("%Y-%m-%d") # WORKS! HERE AND IN VIEW =>2018-01-05
+    date = @student.created_at.strftime("%Y-%m-%d")
+    puts date # => 2018-01-05
+    puts Time.zone # => (GMT+00:00) UTC
+    day= Date.today - 1.day # =>2018-01-06
+    puts day
+    # CURRENTS:
+    puts Time.current #=> 2018-01-07 02:28:40 UTC
+    puts Time.current.to_date # => 2018-01-07
+    puts Date.current # => 2018-01-07
+
+    # "dojos.id = #{@dojo.id} AND students.created_at = @student.created_at.strftime("%Y-%m-%d")")
+  end
+
+  def cohort(student)
+    Student.where("id != ? AND dojo_id = ? AND Date(created_at) = ?", student.id, student.dojo_id, student.created_at.strftime("%Y-%m-%d"))
   end
 
   def edit
